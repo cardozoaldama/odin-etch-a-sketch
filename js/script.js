@@ -27,7 +27,10 @@ function createGrid(squaresPerSide) {
     square.style.width = `${squarePercentage}%`;
     square.style.height = `${squarePercentage}%`;
 
-    // Attach the hover event listener to each square
+    // Initialize state tracking using integers to bypass floating-point bugs.
+    // 10 represents 100% opacity (fully bright/colored).
+    square.dataset.opacityStep = "10";
+
     square.addEventListener("mouseover", applyPenStyle);
 
     container.appendChild(square);
@@ -35,16 +38,38 @@ function createGrid(squaresPerSide) {
 }
 
 /**
- * Event handler for mouseover that leaves the pixelated trail.
+ * Generates a random integer between 0 and 255.
  */
-function applyPenStyle(event) {
-  // 'event.target' refers to the specific div that triggered the event
-  event.target.classList.add("active");
+function getRandomRGBValue() {
+  return Math.floor(Math.random() * 256);
 }
 
 /**
- * Prompts the user for a new size, validates it, and redraws the grid.
+ * Handles the logic for randomizing color and decreasing opacity on interaction.
  */
+function applyPenStyle(event) {
+  const target = event.target;
+
+  // 1. Parse the current step state
+  let currentStep = parseInt(target.dataset.opacityStep, 10);
+
+  // If it's already 0, the square is completely dark; no further processing needed
+  if (currentStep === 0) return;
+
+  // 2. Decrement the step by 1 (equivalent to a 10% reduction)
+  currentStep -= 1;
+  target.dataset.opacityStep = currentStep.toString();
+
+  // 3. Generate a new random RGB color string
+  const r = getRandomRGBValue();
+  const g = getRandomRGBValue();
+  const b = getRandomRGBValue();
+
+  // 4. Apply styles inline
+  target.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+  target.style.opacity = currentStep / 10;
+}
+
 function handleResizeRequest() {
   const userInput = prompt(
     `Enter new grid size (1 to ${MAX_GRID_SIZE}):`,
@@ -79,5 +104,5 @@ function handleResizeRequest() {
 // Event listener for the button
 resizeBtn.addEventListener("click", handleResizeRequest);
 
-// Initialize the application on load
+// Initialize application
 createGrid(INITIAL_GRID_SIZE);

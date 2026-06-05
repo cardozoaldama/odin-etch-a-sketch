@@ -22,18 +22,13 @@ body {
     flex-wrap: wrap; /* Critical for pushing squares to the next row */
     width: 960px;
     height: 960px;
-    background-color: white;
+    background-color: #000000; /* Changed to black to enable the darkening effect */
     border: 2px solid #333;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .grid-square {
-    /* The dimensions will be set inline by JavaScript */
-    border: 1px solid #eee; /* Light border to see the grid lines */
-    transition: background-color 0.1s ease; /* Slight smoothing for the pen trail */
-}
-
-/* This class will be appended via JavaScript on hover */
-.grid-square.active {
-    background-color: #333;
+    background-color: #ffffff; /* Start squares as solid white */
+    border: 1px solid #eee;
+    transition: background-color 0.05s ease;
 }

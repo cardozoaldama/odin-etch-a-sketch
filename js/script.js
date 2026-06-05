@@ -10,7 +10,7 @@ const MAX_GRID_SIZE = 100;
  * Generates the grid inside the container.
  * @param {number} squaresPerSide - The number of squares for the rows and columns.
  */
-function createGrid(squaresPerSide) {
+const createGrid = (squaresPerSide) => {
   // 1. Clear any existing grid to ensure a fresh canvas
   container.innerHTML = "";
 
@@ -35,19 +35,19 @@ function createGrid(squaresPerSide) {
 
     container.appendChild(square);
   }
-}
+};
 
 /**
  * Generates a random integer between 0 and 255.
  */
-function getRandomRGBValue() {
+const getRandomRGBValue = () => {
   return Math.floor(Math.random() * 256);
-}
+};
 
 /**
  * Handles the logic for randomizing color and decreasing opacity on interaction.
  */
-function applyPenStyle(event) {
+const applyPenStyle = (event) => {
   const target = event.target;
 
   // 1. Parse the current step state
@@ -68,9 +68,9 @@ function applyPenStyle(event) {
   // 4. Apply styles inline
   target.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
   target.style.opacity = currentStep / 10;
-}
+};
 
-function handleResizeRequest() {
+const handleResizeRequest = () => {
   const userInput = prompt(
     `Enter new grid size (1 to ${MAX_GRID_SIZE}):`,
     "16",
@@ -99,7 +99,7 @@ function handleResizeRequest() {
 
   // If all validation passes, generate the new grid
   createGrid(newSize);
-}
+};
 
 // Event listener for the button
 resizeBtn.addEventListener("click", handleResizeRequest);

@@ -29,6 +29,6 @@ body {
 
 .grid-square {
     background-color: #ffffff; /* Start squares as solid white */
-    border: 1px solid #eee;
+    outline: 1px solid #eee;
     transition: background-color 0.05s ease;
 }
